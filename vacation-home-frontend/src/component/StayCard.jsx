@@ -1,19 +1,32 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
+import styles from '../styles/StayCard.module.css'; // CSS Module
 
-function StayCard({ stay }) {
+
+function StayCard({stay}) {
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        navigate(`/stay/${stay.id}`);  // ✅ Navigate to detail page
+    };
+
     return (
-        <div style={{
-            border: '1px solid #ddd',
-            padding: '16px',
-            borderRadius: '8px',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-            <h3>{stay.name || 'Vacation Stay'}</h3>
-            <p><strong>ID:</strong> {stay.id}</p>
+        <div className={styles.card} onClick={handleCardClick}>
+            <div
+                className={styles.imageContainer}
+                style={{backgroundImage: `url(${stay.imageUrl})`}}
+            >
+                <div className={styles.priceBadge}>${stay.price}</div>
+            </div>
 
-            <p><strong>Property:</strong> {stay.name}</p>
-            {stay.address && <p><strong>Address:</strong> {stay.address}</p>}
-            {stay.description && <p>{stay.description}</p>}
+            <div className={styles.content}>
+                <h3 className={styles.propertyName}>{stay.name}</h3>
+                <p className={styles.address}>{stay.address}</p>
+                <div className={styles.details}>
+                    <span className={styles.rating}>★ {stay.rating} </span>
+                    <span> {stay.occupancy} guests</span>
+                </div>
+            </div>
         </div>
     );
 }
