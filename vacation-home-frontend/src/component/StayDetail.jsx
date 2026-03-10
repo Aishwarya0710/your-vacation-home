@@ -37,7 +37,7 @@ function StayDetail() {
     const makeReservation = async () => {
         try {
             //TO DO : Add proper logic
-            await fetch(`http://localhost:8080/v1/reserve`);
+            await fetch(`http://localhost:8080/v1/reserve/${Number(stayId)}`);
             navigate('/dummy')
         } catch (err) {
             setError(err.message);
